@@ -3,10 +3,19 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 class Square extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      value3: null
+    }
+  }
   render() {
     return (
-      <button className="square">
-        {/* TODO */}
+      <button 
+        className="square" 
+        onClick={()=>{ this.setState({value3: "X"})} }
+      >
+        {this.state.value3}
       </button>
     );
   }
@@ -24,7 +33,7 @@ class Board extends React.Component {
       <div>
         <div className="status">{status}</div>
         <div className="board-row">
-          {this.renderSquare(0)}
+          {this.renderSquare('a')}
           {this.renderSquare(1)}
           {this.renderSquare(2)}
         </div>
@@ -55,6 +64,7 @@ class Game extends React.Component {
           <ol>{/* TODO */}</ol>
         </div>
       </div>
+
     );
   }
 }
