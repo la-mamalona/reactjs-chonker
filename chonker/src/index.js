@@ -1,29 +1,51 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-
+/*
 class Square extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      value3: null
-    }
-  }
   render() {
     return (
       <button 
         className="square" 
-        onClick={()=>{ this.setState({value3: "X"})} }
+        onClick={()=> this.props.boardDiceQueHacerEnClick()}
       >
-        {this.state.value3}
+        {this.props.valor}
       </button>
     );
   }
 }
+*/
+
+function Square(props){
+  return (
+    <button 
+      className="square"
+      onClick={()=> props.boardDiceQueHacerEnClick() }
+    >
+      {props.valor}  
+    </button>
+  );
+}
 
 class Board extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      squares : Array(9).fill(null)
+      //squares: ["X",null, "O", "O", "X", null, null, null, "X"] 
+    }
+  }
+  handleClick(i){
+    let copia_squares = this.state.squares.slice();
+    copia_squares[i] = "X";
+    this.setState({squares : copia_squares});
+  }
+
   renderSquare(i) {
-    return <Square />;
+    return <Square 
+      valor={this.state.squares[i]}
+      boardDiceQueHacerEnClick={()=> this.handleClick(i)}
+    />;
   }
 
   render() {
@@ -33,7 +55,7 @@ class Board extends React.Component {
       <div>
         <div className="status">{status}</div>
         <div className="board-row">
-          {this.renderSquare('a')}
+          {this.renderSquare(0)}
           {this.renderSquare(1)}
           {this.renderSquare(2)}
         </div>
